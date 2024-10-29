@@ -1,0 +1,170 @@
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chat-bubble {
+            background-color: #4a5240;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 15px; /* Adiciona espaçamento acima dos campos de texto */
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+            background-color: #4a5240;
+            color: #fff;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background-color: #6c757d;
+            color: #fff;
+        }
+        .header-image {
+            width: 100%;
+            height: 200px;
+            background-image: url('https://d2zdpiztbgorvt.cloudfront.net/region1/br/188192/biz_photo/85a94aa5ff7043eabeb99b87b36448-barbearia-hermanos-freguesia-d-biz-photo-79b664adccae4784a7ec0fdf21457e-booksy.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+            }
+
+            .chat-container {
+                padding: 15px;
+            }
+
+            .chat-bubble {
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .input-container input {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .input-container button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .header-image {
+                height: 150px;
+            }
+
+            .logo {
+                width: 150px;
+                height: 75px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .chat-container {
+                padding: 10px;
+            }
+
+            .chat-bubble {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .input-container input {
+                padding: 6px;
+                font-size: 13px;
+            }
+
+            .input-container button {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+
+            .header-image {
+                height: 120px;
+            }
+
+            .logo {
+                width: 130px;
+                height: 65px;
+            }
+        }
+
+        /* Espaçamento extra entre os chat bubbles */
+        .chat-bubble + .chat-bubble {
+            margin-top: 15px;
+        }
+
+        /* Ajuste para a bolha de notificações */
+        #personalizedMessage {
+            margin-top: 30px; /* Adiciona mais espaçamento acima da bolha com notificações */
+        }
+    </style>
+</head>
+<body>
+    <div class="header-image">
+        <img src="https://static.vecteezy.com/system/resources/previews/044/812/126/non_2x/classic-barber-shop-logo-with-vintage-style-on-transparent-background-png.png" alt="Barbearia Demir logo" class="logo">
+    </div>
+    <div class="chat-container">
+        <div class="chat-bubble">
+            Olá, tudo bem? Sou assistente virtual da Barbearia Anderson e cuido do agendamento de atendimentos para seus profissionais, ok?
+        </div>
+        <div class="chat-bubble" id="namePrompt">
+            Qual é o seu nome? Por favor, escreva seu nome e sobrenome.
+        </div>
+        <div class="input-container">
+            <input type="text" id="nameInput" placeholder="Your first and last name">
+            <button onclick="sendName()">Send</button>
+        </div>
+        <div class="chat-bubble" id="personalizedMessage" style="display: none;">
+            <!-- Mensagem personalizada será exibida aqui -->
+        </div>
+    </div>
+
+    <script>
+        function sendName() {
+            var name = document.getElementById('nameInput').value;
+            if (name.trim() !== "") {
+                var personalizedMessage = document.getElementById('personalizedMessage');
+                personalizedMessage.innerHTML = `Como você está, ${name}? Tudo bem? Para lembrá-lo de sua consulta, ative suas notificações clicando abaixo: <button onclick="activateNotifications()">Ativar Notificações</button>`;
+                personalizedMessage.style.display = 'block';
+                document.getElementById('namePrompt').style.display = 'none';
+            }
+        }
+
+        function activateNotifications() {
+            alert("Notificações ativadas!");
+        }
+    </script>
+</body>
+</html>
