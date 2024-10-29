@@ -18,11 +18,12 @@
             border-radius: 10px;
             padding: 15px;
             margin-bottom: 10px;
+            word-wrap: break-word;
         }
         .input-container {
             display: flex;
             align-items: center;
-            margin-top: 15px; /* Adiciona espaçamento acima dos campos de texto */
+            margin-top: 15px;
         }
         .input-container input {
             flex: 1;
@@ -53,6 +54,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 150px;
         }
 
         /* Estilos responsivos */
@@ -60,64 +62,32 @@
             body {
                 font-size: 16px;
             }
-
-            .chat-container {
-                padding: 15px;
-            }
-
-            .chat-bubble {
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            .input-container input {
-                padding: 8px;
-                font-size: 14px;
-            }
-
-            .input-container button {
-                padding: 8px 16px;
-                font-size: 14px;
-            }
-
-            .header-image {
-                height: 150px;
-            }
-
-            .logo {
-                width: 150px;
-                height: 75px;
-            }
         }
 
-        @media (max-width: 576px) {
-            .chat-container {
-                padding: 10px;
-            }
-
-            .chat-bubble {
-                padding: 10px;
-                font-size: 13px;
-            }
-
-            .input-container input {
-                padding: 6px;
-                font-size: 13px;
-            }
-
-            .input-container button {
-                padding: 6px 12px;
-                font-size: 13px;
-            }
-
-            .header-image {
-                height: 120px;
-            }
-
-            .logo {
-                width: 130px;
-                height: 65px;
-            }
+        /* Container para os cards */
+        .card-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            margin-top: 20px;
+            padding-bottom: 10px;
+            scroll-snap-type: x mandatory;
+        }
+        .card {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            background-color: #333;
+            color: #fff;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            padding: 15px;
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
         }
 
         /* Espaçamento extra entre os chat bubbles */
@@ -127,7 +97,7 @@
 
         /* Ajuste para a bolha de notificações */
         #personalizedMessage {
-            margin-top: 30px; /* Adiciona mais espaçamento acima da bolha com notificações */
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -143,11 +113,62 @@
             Qual é o seu nome? Por favor, escreva seu nome e sobrenome.
         </div>
         <div class="input-container">
-            <input type="text" id="nameInput" placeholder="Your first and last name">
-            <button onclick="sendName()">Send</button>
+            <input type="text" id="nameInput" placeholder="Seu nome e sobrenome">
+            <button onclick="sendName()">Enviar</button>
         </div>
         <div class="chat-bubble" id="personalizedMessage" style="display: none;">
             <!-- Mensagem personalizada será exibida aqui -->
+        </div>
+
+        <!-- Container de cards (cortes de cabelo) -->
+        <div class="card-container" id="haircutCards" style="display: none;">
+            <div class="card" onclick="selectHaircut('Degradê')">
+                <img src="https://blog.oceane.com.br/wp-content/uploads/2024/02/destaque-cortes-de-cabelo-masculino.jpg" alt="Degradê">
+                <p>Degradê</p>
+                <p>R$30,00</p>
+            </div>
+            <div class="card" onclick="selectHaircut('Undercut')">
+                <img src="https://blog.oceane.com.br/wp-content/uploads/2024/02/undercut.jpg" alt="Undercut">
+                <p>Undercut</p>
+                <p>R$35,00</p>
+            </div>
+            <div class="card" onclick="selectHaircut('Corte Clássico')">
+                <img src="https://inspiracabelo.com.br/wp-content/uploads/2024/03/corte-americano-26.jpg" alt="Corte Clássico">
+                <p>Corte Clássico</p>
+                <p>R$25,00</p>
+            </div>
+            <div class="card" onclick="selectHaircut('Topete')">
+                <img src="https://i.pinimg.com/236x/5d/b0/65/5db065b15ea895b594e7d601780f3324.jpg" alt="Topete">
+                <p>Topete</p>
+                <p>R$40,00</p>
+            </div>
+            <div class="card" onclick="selectHaircut('Corte Militar')">
+                <img src="https://i.pinimg.com/736x/84/ea/84/84ea846c653cf4a4d65cccad704f0a37.jpg" alt="Corte Militar">
+                <p>Corte Militar</p>
+                <p>R$28,00</p>
+            </div>
+            <div class="card" onclick="selectHaircut('Razor Part')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqjZCG0_M0E5NNtV_RBxKaIqTE3RbMa1GYoA&s" alt="Razor Part">
+                <p>Razor Part</p>
+                <p>R$35,00</p>
+            </div>
+        </div>
+
+        <div class="chat-bubble" id="selectedHaircutMessage" style="display: none;">
+            <!-- Mensagem do corte selecionado será exibida aqui -->
+        </div>
+
+        <!-- Mensagem de agendamento -->
+        <div class="chat-bubble" id="appointmentMessage" style="display: none;">
+            Claro, e qual é o melhor dia e horário para você ser atendido? 
+            <ul>
+                <li>Segunda-feira</li>
+                <li>Terça-feira</li>
+                <li>Quarta-feira</li>
+                <li>Quinta-feira</li>
+                <li>Sexta-feira</li>
+                <li>Sábado</li>
+            </ul>
         </div>
     </div>
 
@@ -159,11 +180,20 @@
                 personalizedMessage.innerHTML = `Como você está, ${name}? Tudo bem? Para lembrá-lo de sua consulta, ative suas notificações clicando abaixo: <button onclick="activateNotifications()">Ativar Notificações</button>`;
                 personalizedMessage.style.display = 'block';
                 document.getElementById('namePrompt').style.display = 'none';
+                document.getElementById('haircutCards').style.display = 'flex'; // Mostra os cards
             }
         }
 
         function activateNotifications() {
             alert("Notificações ativadas!");
+        }
+
+        function selectHaircut(haircut) {
+            document.getElementById('haircutCards').style.display = 'none'; // Oculta os cards
+            var selectedHaircutMessage = document.getElementById('selectedHaircutMessage');
+            selectedHaircutMessage.innerHTML = `Você escolheu o corte: ${haircut}.`;
+            selectedHaircutMessage.style.display = 'block';
+            document.getElementById('appointmentMessage').style.display = 'block'; // Mostra a mensagem de agendamento
         }
     </script>
 </body>
